@@ -1,0 +1,165 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+    margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        interpolate-size: allow-keywords;
+    }
+}
+
+body {
+    /* 4. Add accessible line-height */
+    line-height: 1.5;
+    /* 5. Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+    text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+/*
+    10. Create a root stacking context
+  */
+#root,
+#__next {
+    isolation: isolate;
+}
+
+:root {
+    --primary-color: #F9F7F7;
+    --secondary-color: #DBE2EF;
+    --third-color: #C5CFDE;
+    --fourth-color: #3F72AF;
+    --red: #E84545;
+    --black-text: #333333;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'San Francisco', sans-serif;
+    color: var(--black-text);
+}
+
+.main {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.sidebar {
+    background-color: var(--secondary-color);
+}
+
+.content {
+    background-color: var(--primary-color);
+}
+
+footer {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    border-top: 2px solid var(--third-color);
+}
+
+.footer_sidebar {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer_content {
+    background-color: var(--primary-color);
+    padding: 10px;
+}
+
+footer button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg);}
+    25% { transform: rotate(30deg);}
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-30deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.trash_button svg {
+    width: 30px;
+    height: 30px;
+    transition: 0.1s ease-in-out;
+}
+
+.trash_button:hover svg {
+    fill: var(--red);
+    animation: shake 0.3s ease-in-out 1;
+}
+.addlist_button {
+    transition: 0.1s ease-in-out;
+}
+
+.addlist_button:hover svg g {
+    stroke: var(--fourth-color);
+}
+
+.addlist_button:hover {
+    color: var(--fourth-color);
+}
