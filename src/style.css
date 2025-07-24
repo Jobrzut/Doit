@@ -185,3 +185,57 @@ footer button {
     border: 3px solid var(--fourth-color);
 }
 
+.user_input {
+    background-color: var(--primary-color);
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    margin-top: 10px;
+}
+
+.user_input div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user_input label {
+    font-weight: 600;
+}
+
+#username {
+    width: 100%;
+    border: 2px solid var(--black-text);
+    border-radius: 5px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.user_input input:focus {
+    border-color: var(--fourth-color) !important;
+}
+
+.user_input button {
+    border: none;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+    padding: 7px;
+    color: inherit;
+    font-size: 1.2em;
+    font-weight: 500;
+    border: 2px solid var(--secondary-color);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.user_input button:hover {
+    background-color: transparent;
+}
+
+.active_arrow {
+    transform: rotate(180deg);
+}
