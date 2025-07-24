@@ -101,6 +101,7 @@ body {
 
 .sidebar {
     background-color: var(--secondary-color);
+    padding: 20px;
 }
 
 .content {
@@ -154,6 +155,7 @@ footer button {
 }
 .addlist_button {
     transition: 0.1s ease-in-out;
+    color: var(--black-text);
 }
 
 .addlist_button:hover svg g {
@@ -163,3 +165,23 @@ footer button {
 .addlist_button:hover {
     color: var(--fourth-color);
 }
+
+.user {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.user h2 {
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.user .profile_picture {
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid var(--fourth-color);
+}
+
