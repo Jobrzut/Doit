@@ -80,6 +80,8 @@ h6 {
     --secondary-color: #DBE2EF;
     --third-color: #C5CFDE;
     --fourth-color: #3F72AF;
+    --fourth-color-lighter: #A5C5E5;
+    --fifth-color: #112D4E;
     --red: #E84545;
     --black-text: #333333;
 }
@@ -102,6 +104,8 @@ body {
 .sidebar {
     background-color: var(--secondary-color);
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .content {
@@ -181,19 +185,21 @@ footer button {
 
 .user .profile_picture {
     height: 50px;
+    width: 50px;
     border-radius: 50%;
     border: 3px solid var(--fourth-color);
 }
 
 .user_input {
     background-color: var(--primary-color);
-    padding: 15px;
+    padding: 16px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     position: absolute;
     margin-top: 10px;
+    top: 80px;
 }
 
 .user_input div {
@@ -238,4 +244,38 @@ footer button {
 
 .active_arrow {
     transform: rotate(180deg);
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 40px;
+}
+
+.sidebar ul li {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 1.05em;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.sidebar ul .current {
+    background-color: var(--fourth-color-lighter);
+    color: var(--fourth-color);
+}
+
+.sidebar ul .current svg {
+    fill: #3F72AF;
+}
+
+.add_task {
+    color: var(--fourth-color);
 }

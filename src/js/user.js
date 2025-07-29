@@ -85,6 +85,7 @@ function createModal() {
     displayUser();
     displayProfilePicture();
     removeForm();
+    userArrow.classList.toggle("active_arrow");
   });
 
   form.append(usernameDiv, fileDiv, submitButton);
