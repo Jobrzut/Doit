@@ -8,16 +8,8 @@ let controler = 0;
 let user = localStorage.getItem("username") || undefined;
 let picture = localStorage.getItem("profilepicture") || undefined;
 
-function convertImageToBase64(file) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file); 
-    reader.onload = () => resolve(reader.result);
-  });
-}
-
 function removeForm() {
-  const form = document.querySelector(".main .sidebar form");
+  const form = document.querySelector(".main .sidebar .user_input");
   form.remove();
   controler = 0;
 }
