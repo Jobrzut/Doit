@@ -9,6 +9,11 @@ function removeForm() {
     controlerNewList = 0;
 }
 
+function addNewList(name) {
+    Todo.addProject(name);
+    showUserAddedLists();
+}
+
 function createModal() {
     const form = document.createElement("form");
     form.classList = "newlist_input";
@@ -28,6 +33,7 @@ function createModal() {
     submitButton.textContent = "Add";
     submitButton.addEventListener("click", (event) => {
         event.preventDefault();
+        addNewList(listnameInput.value)
         removeForm();
     });
 
@@ -44,12 +50,56 @@ newListButton.addEventListener("click", (event) => {
     }
 });
 
-let userAddedLists = localStorage.getItem("userAddedLists") || ["Random", ];
+class TodoList {
+    constructor() {
+        this.projects = [];
+    }
+
+    addProject(name) {
+        this.projects.push(new Project(name));
+    }
+}
+
+class Project {
+    constructor(name) {
+        this.name = name;
+        this.tasks = [];
+    }
+
+    addTask(title) {
+        this.tasks.push(new Task(title));
+    }
+
+    getName() {
+        return this.name;
+    }
+}
+
+
+class Task {
+    constructor(title) {
+        this.title = title;
+        this.isDone = false;
+    }
+}
+
+let TodoData = JSON.parse(localStorage.getItem("Todo"));
+let Todo;
+
+if (TodoData) {
+    Todo = TodoData;
+} else {
+    Todo = new TodoList();
+    Todo.addProject("Random");
+}
+
+console.log(Todo);
 
 function showUserAddedLists() {
-    userAddedLists.forEach(element => {
+    userAddedListUl.innerHTML = "";
+    Todo.projects.forEach(element => {
         const listElement = document.createElement("li");
-        listElement.innerHTML = `<span>#</span> ${element}`;
+        listElement.innerHTML = `<span>#</span> ${element.getName()}`;
         userAddedListUl.appendChild(listElement);
     });
 }

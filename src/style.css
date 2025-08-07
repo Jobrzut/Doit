@@ -281,7 +281,7 @@ footer button:not(.newlist_input button) {
 }
 
 .userAdded span {
-    font-size: 30px;
+    font-size: 28px;
 }
 
 .newlist_input {
@@ -312,4 +312,8 @@ footer button:not(.newlist_input button) {
 
 .newlist_input button:hover {
     background-color: transparent;
+}
+
+.userAdded li {
+    padding-block: 0 !important;
 }
