@@ -12,6 +12,7 @@ function removeForm() {
 function addNewList(name) {
     Todo.addProject(name);
     showUserAddedLists();
+    localStorage.setItem("Todo", JSON.stringify(Todo));
 }
 
 function createModal() {
@@ -87,7 +88,15 @@ let TodoData = JSON.parse(localStorage.getItem("Todo"));
 let Todo;
 
 if (TodoData) {
-    Todo = TodoData;
+    Todo = new TodoList();
+    TodoData.projects.forEach(p => {
+        const project = new Project(p.name);
+        project.tasks.forEach(t => {
+            const task = new Task(t.title);
+            project.tasks.push(task);``
+        });
+        Todo.projects.push(project);
+    });
 } else {
     Todo = new TodoList();
     Todo.addProject("Random");
