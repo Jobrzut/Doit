@@ -1,6 +1,7 @@
 const newListButton = document.querySelector(".addlist_button");
 const footerSidebar = document.querySelector(".footer_sidebar");
 const userAddedListUl = document.querySelector(".userAdded");
+const trashButton = document.querySelector(".trash_button");
 let controlerNewList = 0;
 
 function removeForm() {
@@ -9,10 +10,14 @@ function removeForm() {
     controlerNewList = 0;
 }
 
-function addNewList(name) {
-    Todo.addProject(name);
+function showLists() {
     showUserAddedLists();
     localStorage.setItem("Todo", JSON.stringify(Todo));
+}
+
+function addNewList(name) {
+    Todo.addProject(name);
+    showLists();
 }
 
 function createModal() {
@@ -59,20 +64,21 @@ class TodoList {
     addProject(name) {
         this.projects.push(new Project(name));
     }
+
+    removeProject(index) {
+        this.projects.splice(index, 1);
+    }
 }
 
 class Project {
     constructor(name) {
         this.name = name;
         this.tasks = [];
+        this.id = crypto.randomUUID();
     }
 
     addTask(title) {
         this.tasks.push(new Task(title));
-    }
-
-    getName() {
-        return this.name;
     }
 }
 
@@ -93,24 +99,41 @@ if (TodoData) {
         const project = new Project(p.name);
         project.tasks.forEach(t => {
             const task = new Task(t.title);
-            project.tasks.push(task);``
+            project.tasks.push(task);
         });
         Todo.projects.push(project);
     });
+
+    if (Todo.projects.length === 0) {
+        Todo.addProject("Random");
+    }
+
 } else {
     Todo = new TodoList();
     Todo.addProject("Random");
 }
 
-console.log(Todo);
 
 function showUserAddedLists() {
     userAddedListUl.innerHTML = "";
     Todo.projects.forEach(element => {
         const listElement = document.createElement("li");
-        listElement.innerHTML = `<span>#</span> ${element.getName()}`;
+        listElement.innerHTML = `<span>#</span> ${element.name}`;
+        listElement.setAttribute("projectid", element.id);
         userAddedListUl.appendChild(listElement);
     });
 }
 
 showUserAddedLists();
+
+
+trashButton.addEventListener("click", (event) => {
+    let currentProject = document.querySelector(".current");
+    const toDelete = currentProject.getAttribute("projectid");
+
+    if (toDelete) {
+        const indexToDelete = Todo.projects.findIndex(obj => obj.id === toDelete);
+        Todo.removeProject(indexToDelete);
+        showLists();
+    }
+});
