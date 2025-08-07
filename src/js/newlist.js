@@ -1,5 +1,6 @@
 const newListButton = document.querySelector(".addlist_button");
 const footerSidebar = document.querySelector(".footer_sidebar");
+const userAddedListUl = document.querySelector(".userAdded");
 let controlerNewList = 0;
 
 function removeForm() {
@@ -42,3 +43,15 @@ newListButton.addEventListener("click", (event) => {
         removeForm();
     }
 });
+
+let userAddedLists = localStorage.getItem("userAddedLists") || ["Random", ];
+
+function showUserAddedLists() {
+    userAddedLists.forEach(element => {
+        const listElement = document.createElement("li");
+        listElement.innerHTML = `<span>#</span> ${element}`;
+        userAddedListUl.appendChild(listElement);
+    });
+}
+
+showUserAddedLists();
