@@ -74,5 +74,35 @@
 
         </div>
     </footer>
+     <dialog>
+            <div class="inner_dialog">
+                <h2>Add a new task</h2>
+                <form>
+                    <div>
+                        <label for="name">Name:</label>
+                        <input type="text" id="name">
+                    </div>
+                    <div>
+                        <label for="description">Description:</label>
+                        <textarea id="description"></textarea>
+                    </div>
+                    <div>
+                        <label for="duedate">Due date:</label>
+                        <input type="date" id="duedate">
+                    </div>
+                    <div>
+                        <label for="priority">Priority:</label>
+                        <select id="priority">
+                            <option value="urgent">Very fucking urgent</option>
+                            <option value="important">Important</option>
+                            <option value="normal" selected>Normal</option>
+                            <option value="wait">Can wait</option>
+                            <option value="whenever">Whenever</option>
+                        </select>
+                    </div>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </dialog>
 </body>
 </html>

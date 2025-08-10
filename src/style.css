@@ -278,6 +278,7 @@ footer button:not(.newlist_input button) {
 
 .add_task {
     color: var(--fourth-color);
+    transition: 0.2s ;
 }
 
 .userAdded span {
@@ -316,4 +317,57 @@ footer button:not(.newlist_input button) {
 
 .userAdded li {
     padding-block: 0 !important;
+}
+
+dialog {
+    position: fixed;
+    margin: auto;
+    inset: 0 0 0 0;
+    border-radius: 1rem;
+    border: 3px solid var(--third-color);
+    padding: 0;
+    outline: none;
+    min-width: 400px;
+    background-color: var(--primary-color);
+}
+
+dialog::backdrop {
+    background: transparent;
+}
+
+dialog h2 {
+    color: var(--fourth-color);
+    margin-bottom: 10px;
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+dialog form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.inner_dialog {
+    padding: 20px;
+}
+
+dialog form button {
+    margin-top: 10px;
+    background-color: var(--fourth-color);
+    border: 2px solid var(--fourth-color);
+    border-radius: 10px;
+    color: var(--primary-color);
+    padding: 5px;
+    font-size: 1.2em;
+    transition: 0.2s;
+}
+
+dialog form  button:hover {
+    background-color: var(--primary-color);
+    color: var(--fourth-color);
 }
