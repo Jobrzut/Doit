@@ -18,6 +18,8 @@ function showLists() {
 function addNewList(name) {
     Todo.addProject(name);
     showLists();
+    const addedItem = document.querySelectorAll(".userAdded li");
+    addedItem[addedItem.length-1].className = "current";
 }
 
 function createModal() {
@@ -124,16 +126,49 @@ function showUserAddedLists() {
     });
 }
 
-showUserAddedLists();
+function initialListsLoad() {
+    showUserAddedLists();
+    const firstItem = document.querySelector(".userAdded li");
+    firstItem.className = "current";
+}
+
+initialListsLoad();
+
+function setCurrentToThePrevious(previousElementSibling, nextElementSibling) {
+    if (previousElementSibling) {
+        let previousElementId = previousElementSibling.getAttribute("projectid");
+        let top_list = Array.from(document.querySelectorAll(".sidebar ul li:not(.add_task)"));
+        const previousElement = top_list.find(obj => obj.getAttribute("projectid") === previousElementId);
+        top_list.forEach(li => {
+           li.className = "";
+        });
+        previousElement.className = "current";
+    } else {
+        if (nextElementSibling) {
+            let nextElementId = nextElementSibling.getAttribute("projectid");
+            let top_list = Array.from(document.querySelectorAll(".sidebar ul li:not(.add_task)"));
+            const nextElement = top_list.find(obj => obj.getAttribute("projectid") === nextElementId);
+            top_list.forEach(li => {
+                li.className = "";
+            });
+            nextElement.className = "current";
+        } else {
+            alert("Nie ma więcej list - Muszę tu dodać stronę informującą o tym!");
+        }
+    }
+}
 
 
 trashButton.addEventListener("click", (event) => {
     let currentProject = document.querySelector(".current");
+    let previousElementSibling = currentProject.previousElementSibling;
+    let nextElementSibling = currentProject.nextElementSibling;
     const toDelete = currentProject.getAttribute("projectid");
 
     if (toDelete) {
         const indexToDelete = Todo.projects.findIndex(obj => obj.id === toDelete);
         Todo.removeProject(indexToDelete);
         showLists();
+        setCurrentToThePrevious(previousElementSibling, nextElementSibling)
     }
 });
