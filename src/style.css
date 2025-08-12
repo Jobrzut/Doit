@@ -158,8 +158,12 @@ footer button:not(.newlist_input button) {
     animation: shake 0.3s ease-in-out 1;
 }
 .addlist_button {
-    transition: 0.1s ease-in-out;
+    transition: 0.2s ease-in-out;
     color: var(--black-text);
+}
+
+.addlist_button svg g {
+    transition: 0.2s ease-in-out;
 }
 
 .addlist_button:hover svg g {
@@ -212,6 +216,7 @@ footer button:not(.newlist_input button) {
 
 .user_input label, .newlist_input label {
     font-weight: 600;
+    color: var(--black-text);
 }
 
 #username, #listname {
@@ -365,9 +370,54 @@ dialog form button {
     padding: 5px;
     font-size: 1.2em;
     transition: 0.2s;
+    cursor: pointer;
 }
 
 dialog form  button:hover {
     background-color: var(--primary-color);
     color: var(--fourth-color);
+}
+
+dialog input, dialog textarea, dialog select{
+    padding-inline: 5px;
+    border-radius: 5px;
+    border: 3px solid var(--third-color);
+}
+
+dialog input:focus, dialog textarea:focus, dialog select:focus{
+    border-color: var(--fourth-color) !important;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+dialog label {
+    font-weight: 600;
+    color: var(--black-text);
+}
+
+.close {
+    border: 0;
+    padding: 3px;
+    margin-left: auto;
+    cursor: pointer;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.add_task:hover {
+    color: var(--black-text);
+}
+
+.add_task:hover svg {
+    fill: var(--black-text);
+}
+
+.add_task svg {
+    transition: 0.2s;
 }
