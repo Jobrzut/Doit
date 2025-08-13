@@ -45,5 +45,9 @@ addButton.addEventListener("click", (event) => {
     dateInput.value,
     priorityInput.value
   ));
-  console.log(Todo.projects[indexOfCurrent]);
+  dialog.close();
+  nameInput.value = "";
+  descriptionInput.value = "";
+  dateInput.value = "";
+  priorityInput.value = "";
 });
