@@ -85,9 +85,12 @@ class Project {
 }
 
 
-class Task {
-    constructor(title) {
+export class Task {
+    constructor(title, description, date, priority) {
         this.title = title;
+        this.description = description;
+        this.date = date;
+        this.priority = priority;
         this.isDone = false;
     }
 }
@@ -100,7 +103,7 @@ if (TodoData) {
     TodoData.projects.forEach(p => {
         const project = new Project(p.name);
         project.tasks.forEach(t => {
-            const task = new Task(t.title);
+            const task = new Task(t.title, t.description, t.date, t.priority);
             project.tasks.push(task);
         });
         Todo.projects.push(project);
@@ -114,6 +117,8 @@ if (TodoData) {
     Todo = new TodoList();
     Todo.addProject("Random");
 }
+
+export { Todo };
 
 
 function showUserAddedLists() {
