@@ -5,6 +5,7 @@ const trashButton = document.querySelector(".trash_button");
 let controlerNewList = 0;
 
 import { displayProject } from "./displayproject";
+import { displayNoProjectsMessage } from "./noprojects.js";
 
 function removeForm() {
     const form = document.querySelector(".newlist_input");
@@ -160,7 +161,7 @@ function setCurrentToThePrevious(previousElementSibling, nextElementSibling) {
             });
             nextElement.className = "current";
         } else {
-            alert("Nie ma więcej list - Muszę tu dodać stronę informującą o tym!");
+            displayNoProjectsMessage();
         }
     }
 }

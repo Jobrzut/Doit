@@ -11,10 +11,10 @@ function addProjectTitle(currentProjectIndex) {
 }
 
 export function displayProject() {
-    contentSection.innerHTML = "";
     const currentProjectIndex = findCurrentProject();
     if (currentProjectIndex === null) {
         return -1;
     }
+    contentSection.innerHTML = "";
     addProjectTitle(currentProjectIndex);
 }
