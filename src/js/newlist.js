@@ -102,7 +102,7 @@ if (TodoData) {
     Todo = new TodoList();
     TodoData.projects.forEach(p => {
         const project = new Project(p.name);
-        project.tasks.forEach(t => {
+        p.tasks.forEach(t => {
             const task = new Task(t.title, t.description, t.date, t.priority);
             project.tasks.push(task);
         });

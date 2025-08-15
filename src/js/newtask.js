@@ -45,9 +45,11 @@ addButton.addEventListener("click", (event) => {
     dateInput.value,
     priorityInput.value
   ));
+  localStorage.setItem("Todo", JSON.stringify(Todo));
   dialog.close();
   nameInput.value = "";
   descriptionInput.value = "";
   dateInput.value = "";
   priorityInput.value = "";
+  console.log(Todo.projects[indexOfCurrent].tasks);
 });
