@@ -29,11 +29,14 @@ closeButton.addEventListener("click", (event) => {
   }
 });
 
-function findCurrentProject() {
+export function findCurrentProject() {
   let currentProject = document.querySelector(".current");
-  const foundId = currentProject.getAttribute("projectid");
-  const indexOfCurrent = Todo.projects.findIndex(obj => obj.id === foundId);
-  return indexOfCurrent;
+  if (currentProject) {
+    const foundId = currentProject.getAttribute("projectid");
+    const indexOfCurrent = Todo.projects.findIndex(obj => obj.id === foundId);
+    return indexOfCurrent;
+  }
+  return null;
 }
 
 addButton.addEventListener("click", (event) => {

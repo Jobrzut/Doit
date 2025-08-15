@@ -4,6 +4,8 @@ const userAddedListUl = document.querySelector(".userAdded");
 const trashButton = document.querySelector(".trash_button");
 let controlerNewList = 0;
 
+import { displayProject } from "./displayproject";
+
 function removeForm() {
     const form = document.querySelector(".newlist_input");
     form.remove();
@@ -20,6 +22,7 @@ function addNewList(name) {
     showLists();
     const addedItem = document.querySelectorAll(".userAdded li");
     addedItem[addedItem.length-1].className = "current";
+    displayProject();
 }
 
 function createModal() {
@@ -135,9 +138,8 @@ function initialListsLoad() {
     showUserAddedLists();
     const firstItem = document.querySelector(".userAdded li");
     firstItem.className = "current";
+    displayProject();
 }
-
-initialListsLoad();
 
 function setCurrentToThePrevious(previousElementSibling, nextElementSibling) {
     if (previousElementSibling) {
@@ -175,5 +177,10 @@ trashButton.addEventListener("click", (event) => {
         Todo.removeProject(indexToDelete);
         showLists();
         setCurrentToThePrevious(previousElementSibling, nextElementSibling)
+        displayProject();
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    initialListsLoad();
 });
