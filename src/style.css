@@ -219,7 +219,7 @@ footer button:not(.newlist_input button) {
     color: var(--black-text);
 }
 
-#username, #listname {
+#username, #listname, #listdescription {
     width: 100%;
     border: 2px solid var(--black-text);
     border-radius: 5px;
@@ -227,7 +227,7 @@ footer button:not(.newlist_input button) {
     outline: none;
 }
 
-.user_input input:focus, .newlist_input input:focus {
+.user_input input:focus, .newlist_input input:focus, #listdescription:focus {
     border-color: var(--fourth-color) !important;
 }
 

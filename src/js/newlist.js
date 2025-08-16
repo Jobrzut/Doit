@@ -18,8 +18,8 @@ function showLists() {
     localStorage.setItem("Todo", JSON.stringify(Todo));
 }
 
-function addNewList(name) {
-    Todo.addProject(name);
+function addNewList(name, description) {
+    Todo.addProject(name, description);
     showLists();
     const addedItem = document.querySelectorAll(".userAdded li");
     addedItem[addedItem.length-1].className = "current";
@@ -41,15 +41,25 @@ function createModal() {
     listnameInput.value = "New list";
     listnameDiv.append(listnameLabel, listnameInput);
 
+    const listDescriptionDiv = document.createElement("div");
+    listDescriptionDiv.classList = "listdescription";
+    const listDescriptionLabel = document.createElement("label");
+    listDescriptionLabel.textContent = "Description:";
+    listDescriptionLabel.setAttribute("for", "listdescription");
+    const listDescriptionInput = document.createElement("textarea");
+    listDescriptionInput.id = "listdescription";
+    listDescriptionDiv.append(listDescriptionLabel, listDescriptionInput);
+
+
     const submitButton = document.createElement("button");
     submitButton.textContent = "Add";
     submitButton.addEventListener("click", (event) => {
         event.preventDefault();
-        addNewList(listnameInput.value)
+        addNewList(listnameInput.value, listDescriptionInput.value);
         removeForm();
     });
 
-    form.append(listnameDiv, submitButton);
+    form.append(listnameDiv, listDescriptionDiv, submitButton);
     controlerNewList = 1;
     footerSidebar.appendChild(form);
 }
@@ -67,8 +77,8 @@ class TodoList {
         this.projects = [];
     }
 
-    addProject(name) {
-        this.projects.push(new Project(name));
+    addProject(name, description) {
+        this.projects.push(new Project(name, description));
     }
 
     removeProject(index) {
@@ -77,8 +87,9 @@ class TodoList {
 }
 
 class Project {
-    constructor(name) {
+    constructor(name, description = "") {
         this.name = name;
+        this.description = description;
         this.tasks = [];
         this.id = crypto.randomUUID();
     }
@@ -105,7 +116,7 @@ let Todo;
 if (TodoData) {
     Todo = new TodoList();
     TodoData.projects.forEach(p => {
-        const project = new Project(p.name);
+        const project = new Project(p.name, p.description);
         p.tasks.forEach(t => {
             const task = new Task(t.title, t.description, t.date, t.priority);
             project.tasks.push(task);

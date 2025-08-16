@@ -10,6 +10,13 @@ function addProjectTitle(currentProjectIndex) {
     contentSection.appendChild(projectTitle);
 }
 
+function addProjectDescription(currentProjectIndex) {
+    const projectDescription = document.createElement("p");
+    projectDescription.className = "project_description";
+    projectDescription.textContent = Todo.projects[currentProjectIndex].description;
+    contentSection.appendChild(projectDescription);
+}
+
 export function displayProject() {
     const currentProjectIndex = findCurrentProject();
     if (currentProjectIndex === null) {
@@ -17,4 +24,5 @@ export function displayProject() {
     }
     contentSection.innerHTML = "";
     addProjectTitle(currentProjectIndex);
+    addProjectDescription(currentProjectIndex);
 }
