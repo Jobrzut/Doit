@@ -421,3 +421,13 @@ dialog label {
 .add_task svg {
     transition: 0.2s;
 }
+
+/* Content section */
+
+.content {
+    padding: 30px 50px 0px;
+}
+
+.content h1 {
+    font-size: 2.5em;
+}

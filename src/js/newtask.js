@@ -11,6 +11,7 @@ const dateInput = document.querySelector("dialog #duedate");
 const priorityInput = document.querySelector("dialog #priority");
 
 import { Todo, Task } from "./newlist.js";
+import { displayProject } from "./displayproject.js";
 
 addTaskButton.addEventListener("click", (event) => {
    dialog.showModal();
@@ -54,5 +55,5 @@ addButton.addEventListener("click", (event) => {
   descriptionInput.value = "";
   dateInput.value = "";
   priorityInput.value = "";
-  console.log(Todo.projects[indexOfCurrent].tasks);
+  displayProject();
 });
