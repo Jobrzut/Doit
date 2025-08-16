@@ -23,23 +23,21 @@ function addProjectTasks(currentProjectIndex) {
     tasksDiv.className = "tasks_div";
     Todo.projects[currentProjectIndex].tasks.forEach(task => {
         const taskElement = document.createElement("div");
-        const rightSideTask = document.createElement("div");
         taskElement.className = "task";
         const taskName = document.createElement("p");
         taskName.className = "task_name";
         taskName.textContent = task.title;
         const taskCheckbox = document.createElement("input");
         taskCheckbox.type = "checkbox";
-        rightSideTask.appendChild(taskName);
+        taskElement.append(taskCheckbox, taskName);
         
         if (task.date !== "") {
-            const formatedDueDate = format(new Date(task.date), "d MMMM yyyy");
+            const formatedDueDate = format(new Date(task.date), "d MMMM");
             const taskDueDate = document.createElement("p");
             taskDueDate.className = "task_duedate";
             taskDueDate.textContent = formatedDueDate;
-            rightSideTask.appendChild(taskDueDate);
+            taskElement.appendChild(taskDueDate);
         }
-        taskElement.append(taskCheckbox, rightSideTask);
         tasksDiv.appendChild(taskElement);
     });
 

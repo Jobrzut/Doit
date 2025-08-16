@@ -432,3 +432,22 @@ dialog label {
 .content h1 {
     font-size: 2.5em;
 }
+
+.project_description {
+    padding-bottom: 20px;
+}
+
+.task {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-columns: auto auto;  
+    row-gap: 5px; 
+    column-gap: 20px;
+    justify-content: start;
+    align-content: start;
+}
+
+.task_duedate {
+    grid-column: 2;
+    grid-row: 2;
+}
