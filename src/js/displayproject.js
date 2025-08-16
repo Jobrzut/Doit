@@ -28,7 +28,8 @@ function addProjectTasks(currentProjectIndex) {
         const taskName = document.createElement("p");
         taskName.className = "task_name";
         taskName.textContent = task.title;
-        const taskCheckbox = document.createElement("checkbox");
+        const taskCheckbox = document.createElement("input");
+        taskCheckbox.type = "checkbox";
         rightSideTask.appendChild(taskName);
         
         if (task.date !== "") {

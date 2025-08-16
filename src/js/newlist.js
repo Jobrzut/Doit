@@ -38,7 +38,7 @@ function createModal() {
     const listnameInput = document.createElement("input");
     listnameInput.id = "listname";
     listnameInput.setAttribute("type", "text");
-    listnameInput.value = "New list";
+    listnameInput.placeholder = "New list";
     listnameDiv.append(listnameLabel, listnameInput);
 
     const listDescriptionDiv = document.createElement("div");
