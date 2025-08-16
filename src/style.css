@@ -329,11 +329,11 @@ dialog {
     margin: auto;
     inset: 0 0 0 0;
     border-radius: 1rem;
-    border: 3px solid var(--third-color);
+    border: none;
     padding: 0;
     outline: none;
     min-width: 400px;
-    background-color: var(--primary-color);
+    background-color: var(--fourth-color);
 }
 
 dialog::backdrop {
@@ -341,7 +341,7 @@ dialog::backdrop {
 }
 
 dialog h2 {
-    color: var(--fourth-color);
+    color: var(--primary-color);
     margin-bottom: 10px;
 }
 
@@ -363,10 +363,10 @@ dialog form div {
 
 dialog form button {
     margin-top: 10px;
-    background-color: var(--fourth-color);
-    border: 2px solid var(--fourth-color);
+    background-color: var(--fourth-color-lighter);
+    border: 2px solid var(--fourth-color-lighter);
     border-radius: 10px;
-    color: var(--primary-color);
+    color: var(--fourth-color);
     padding: 5px;
     font-size: 1.2em;
     transition: 0.2s;
@@ -374,18 +374,18 @@ dialog form button {
 }
 
 dialog form  button:hover {
-    background-color: var(--primary-color);
-    color: var(--fourth-color);
+    background-color: transparent;
+    color: var(--primary-color);
 }
 
 dialog input, dialog textarea, dialog select{
-    padding-inline: 5px;
+    padding: 5px;
     border-radius: 5px;
-    border: 3px solid var(--third-color);
+    border: 2px solid color-mix(in srgb, var(--fourth-color) 80%, black);
 }
 
 dialog input:focus, dialog textarea:focus, dialog select:focus{
-    border-color: var(--fourth-color) !important;
+    border-color: var(--black-text) !important;
     outline: none;
 }
 
@@ -395,7 +395,7 @@ textarea {
 
 dialog label {
     font-weight: 600;
-    color: var(--black-text);
+    color: var(--primary-color);
 }
 
 .close {
@@ -408,6 +408,7 @@ dialog label {
     right: 1px;
     outline: none;
     transition: 0.2s;
+    background-color: var(--fourth-color);
 }
 
 .add_task:hover {
