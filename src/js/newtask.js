@@ -20,13 +20,13 @@ addTaskButton.addEventListener("click", (event) => {
 dialog.addEventListener("click", function (e) {
   if (e.target === e.currentTarget) {
     e.stopPropagation();
-    dialog.close();
+    closeDialog();
   }
 });
 
 closeButton.addEventListener("click", (event) => {
   if (dialog.open) {
-    dialog.close();
+    closeDialog();
   }
 });
 
@@ -50,10 +50,14 @@ addButton.addEventListener("click", (event) => {
     priorityInput.value
   ));
   localStorage.setItem("Todo", JSON.stringify(Todo));
+  closeDialog();
+  displayProject();
+});
+
+function closeDialog() {
   dialog.close();
   nameInput.value = "";
   descriptionInput.value = "";
   dateInput.value = "";
-  priorityInput.value = "";
-  displayProject();
-});
+  priorityInput.selectedIndex = 2;
+}

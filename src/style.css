@@ -84,6 +84,12 @@ h6 {
     --fifth-color: #112D4E;
     --red: #E84545;
     --black-text: #333333;
+    --priority-urgent: #E63946; 
+    --priority-important: #FF8C00; 
+    --priority-normal: #3F72AF;   
+    --priority-wait: #6D9DC5;     
+    --priority-whenever: #B0BEC5; 
+
 }
 
 body {
@@ -430,11 +436,12 @@ dialog label {
 }
 
 .content h1 {
-    font-size: 2.5em;
+    font-size: 3.6em;
 }
 
 .project_description {
-    padding-bottom: 20px;
+    padding-bottom: 30px;
+    font-size: 1.2em;
 }
 
 .task {
@@ -443,11 +450,56 @@ dialog label {
     grid-template-columns: auto auto;  
     row-gap: 5px; 
     column-gap: 20px;
-    justify-content: start;
-    align-content: start;
+    justify-content: start; 
+    align-items: center;
 }
 
 .task_duedate {
     grid-column: 2;
     grid-row: 2;
+    background-color: var(--secondary-color);
+    width: fit-content;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: var(--fourth-color);
+}
+
+.tasks_div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.task_name {
+    font-size: 1.2em;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--primary-color);
+    margin: 0;
+    font: inherit;
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.15em solid var(--black-text);
+    border-radius: 0.2em;
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 0.2em;
+  background-color: var(--dynamic-color, --black-text);
+  transform: scale(0);
+  transition: 200ms transform ease-in-out;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
 }

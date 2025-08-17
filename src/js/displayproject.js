@@ -18,10 +18,29 @@ function addProjectDescription(currentProjectIndex) {
     contentSection.appendChild(projectDescription);
 }
 
+function sortByPriority(tasks) {
+    const tasksCopy = [...tasks]
+     const order = {
+        "urgent": 1,
+        "important": 2,
+        "normal": 3,
+        "wait": 4,
+        "whenever": 5
+    }
+    
+    tasksCopy.sort((a, b) => {
+        return order[a.priority] - order[b.priority];
+    });
+
+    return tasksCopy;
+}
+
 function addProjectTasks(currentProjectIndex) {
     const tasksDiv = document.createElement("div");
     tasksDiv.className = "tasks_div";
-    Todo.projects[currentProjectIndex].tasks.forEach(task => {
+    let tasksSortedByPriority = sortByPriority(Todo.projects[currentProjectIndex].tasks);
+
+    tasksSortedByPriority.forEach(task => {
         const taskElement = document.createElement("div");
         taskElement.className = "task";
         const taskName = document.createElement("p");
@@ -29,10 +48,12 @@ function addProjectTasks(currentProjectIndex) {
         taskName.textContent = task.title;
         const taskCheckbox = document.createElement("input");
         taskCheckbox.type = "checkbox";
+        taskCheckbox.style.borderColor = `var(--priority-${task.priority})`;
+        taskCheckbox.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
         taskElement.append(taskCheckbox, taskName);
         
         if (task.date !== "") {
-            const formatedDueDate = format(new Date(task.date), "d MMMM");
+            const formatedDueDate = format(new Date(task.date), "d MMM");
             const taskDueDate = document.createElement("p");
             taskDueDate.className = "task_duedate";
             taskDueDate.textContent = formatedDueDate;
