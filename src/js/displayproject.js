@@ -41,7 +41,7 @@ function sortByPriority(tasks) {
     return [...unfinishedTasks, ...finishedTasks];
 }
 
-function addProjectTasks(tasks) {
+function addProjectTasks(tasks, refresh = displayProject) {
     const tasksDiv = document.createElement("div");
     tasksDiv.className = "tasks_div";
     let tasksSortedByPriority = sortByPriority(tasks);
@@ -70,7 +70,7 @@ function addProjectTasks(tasks) {
                 taskName.classList.add("animate");
                 setTimeout(() => {taskName.classList.remove("animate")}, 500);
             }
-            setTimeout(() => displayProject(), 500);
+            setTimeout(() => refresh(), 500);
         });
         taskElement.append(taskCheckbox, taskName);
 
@@ -103,5 +103,5 @@ export function displayAllTasks() {
     addProjectTitle("All tasks");
     addProjectDescription("Here you can find all your tasks.");
     const allTasks = [...Todo.projects.map(project => project.tasks).flat()];
-    addProjectTasks(allTasks);
+    addProjectTasks(allTasks, displayAllTasks);
 }
