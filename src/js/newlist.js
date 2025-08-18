@@ -104,12 +104,12 @@ class Project {
 
 
 export class Task {
-    constructor(title, description, date, priority) {
+    constructor(title, description, date, priority, isDone = false) {
         this.title = title;
         this.description = description;
         this.date = date;
         this.priority = priority;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     toggleDone() {
@@ -125,7 +125,7 @@ if (TodoData) {
     TodoData.projects.forEach(p => {
         const project = new Project(p.name, p.description);
         p.tasks.forEach(t => {
-            const task = new Task(t.title, t.description, t.date, t.priority);
+            const task = new Task(t.title, t.description, t.date, t.priority, t.isDone);
             project.tasks.push(task);
         });
         Todo.projects.push(project);

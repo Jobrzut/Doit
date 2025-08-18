@@ -63,13 +63,13 @@ function addProjectTasks(currentProjectIndex) {
         taskCheckbox.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
         taskCheckbox.addEventListener("click", (event) => {
             task.toggleDone();
+            localStorage.setItem("Todo", JSON.stringify(Todo));
             if (task.isDone) {
                 taskName.classList.add("strikethrough");
                 taskName.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
                 taskName.classList.add("animate");
                 setTimeout(() => {taskName.classList.remove("animate")}, 500);
             }
-            localStorage.setItem("Todo", JSON.stringify(Todo));
             setTimeout(() => displayProject(), 500);
         });
         taskElement.append(taskCheckbox, taskName);
