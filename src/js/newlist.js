@@ -111,6 +111,10 @@ export class Task {
         this.priority = priority;
         this.isDone = false;
     }
+
+    toggleDone() {
+        this.isDone = !this.isDone;
+    }
 }
 
 let TodoData = JSON.parse(localStorage.getItem("Todo"));

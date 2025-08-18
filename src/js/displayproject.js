@@ -19,20 +19,26 @@ function addProjectDescription(currentProjectIndex) {
 }
 
 function sortByPriority(tasks) {
-    const tasksCopy = [...tasks]
-     const order = {
+    const tasksCopy = [...tasks];
+    const unfinishedTasks = tasksCopy.filter((task) => !task.isDone);
+    const finishedTasks = tasksCopy.filter((task) => task.isDone);
+    const order = {
         "urgent": 1,
         "important": 2,
         "normal": 3,
         "wait": 4,
         "whenever": 5
     }
-    
-    tasksCopy.sort((a, b) => {
+
+    unfinishedTasks.sort((a, b) => {
         return order[a.priority] - order[b.priority];
     });
 
-    return tasksCopy;
+    finishedTasks.sort((a, b) => {
+        return order[a.priority] - order[b.priority];
+    });
+
+    return [...unfinishedTasks, ...finishedTasks];
 }
 
 function addProjectTasks(currentProjectIndex) {
@@ -48,10 +54,26 @@ function addProjectTasks(currentProjectIndex) {
         taskName.textContent = task.title;
         const taskCheckbox = document.createElement("input");
         taskCheckbox.type = "checkbox";
+        if (task.isDone) {
+            taskCheckbox.checked = true;
+            taskName.classList.add("strikethrough");
+            taskName.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
+        } 
         taskCheckbox.style.borderColor = `var(--priority-${task.priority})`;
         taskCheckbox.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
+        taskCheckbox.addEventListener("click", (event) => {
+            task.toggleDone();
+            if (task.isDone) {
+                taskName.classList.add("strikethrough");
+                taskName.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
+                taskName.classList.add("animate");
+                setTimeout(() => {taskName.classList.remove("animate")}, 500);
+            }
+            localStorage.setItem("Todo", JSON.stringify(Todo));
+            setTimeout(() => displayProject(), 500);
+        });
         taskElement.append(taskCheckbox, taskName);
-        
+
         if (task.date !== "") {
             const formatedDueDate = format(new Date(task.date), "d MMM");
             const taskDueDate = document.createElement("p");
