@@ -24,6 +24,9 @@ function addNewList(name, description) {
     const addedItem = document.querySelectorAll(".userAdded li");
     addedItem[addedItem.length-1].className = "current";
     displayProject();
+    const addTaskButton = document.querySelector(".add_task button");
+    addTaskButton.disabled = false;
+    addTaskButton.style.cursor = "pointer";
 }
 
 function createModal() {
@@ -125,12 +128,12 @@ if (TodoData) {
     });
 
     if (Todo.projects.length === 0) {
-        Todo.addProject("Random");
+        Todo.addProject("Random", "This list is created automatically for you to test out the app.");
     }
 
 } else {
     Todo = new TodoList();
-    Todo.addProject("Random");
+    Todo.addProject("Random", "This list is created automatically for you to test out the app.");
 }
 
 export { Todo };

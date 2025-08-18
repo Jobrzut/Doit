@@ -287,10 +287,18 @@ footer button:not(.newlist_input button) {
     fill: #3F72AF;
 }
 
-.add_task {
+.add_task button {
     color: var(--fourth-color);
     transition: 0.2s ;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    cursor: pointer;
 }
+
 
 .userAdded span {
     font-size: 28px;
@@ -417,11 +425,11 @@ dialog label {
     background-color: var(--fourth-color);
 }
 
-.add_task:hover {
+.add_task button:hover {
     color: var(--black-text);
 }
 
-.add_task:hover svg {
+.add_task button:hover svg {
     fill: var(--black-text);
 }
 

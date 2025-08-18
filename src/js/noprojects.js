@@ -1,4 +1,5 @@
 const contentSection = document.querySelector(".content");
+const addTaskButton = document.querySelector(".add_task button");
 
 export function displayNoProjectsMessage() {
     contentSection.innerHTML = "";
@@ -6,4 +7,6 @@ export function displayNoProjectsMessage() {
     noProjectsMessage.className = "no_projects_message";
     noProjectsMessage.textContent = "You have no projects!";
     contentSection.appendChild(noProjectsMessage);
+    addTaskButton.disabled = true;
+    addTaskButton.style.cursor = "not-allowed";
 }

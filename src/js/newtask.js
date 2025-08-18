@@ -1,17 +1,15 @@
-const addTaskButton = document.querySelector(".add_task");
-const page = document.querySelector(".main");
-const body = document.querySelector("body");
 const dialog = document.querySelector("dialog");
-const backdrop = document.querySelector("dialog::backdrop");
 const closeButton = document.querySelector(".inner_dialog .close")
-const addButton = document.querySelector(".dialog_addtask");
 const nameInput = document.querySelector("dialog #name");
 const descriptionInput = document.querySelector("dialog #description");
 const dateInput = document.querySelector("dialog #duedate");
 const priorityInput = document.querySelector("dialog #priority");
+const addButton = document.querySelector(".dialog_addtask");
+const addTaskButton = document.querySelector(".add_task button");
 
 import { Todo, Task } from "./newlist.js";
 import { displayProject } from "./displayproject.js";
+import { findCurrentProject } from "./utilities.js";
 
 addTaskButton.addEventListener("click", (event) => {
    dialog.showModal();
@@ -30,15 +28,6 @@ closeButton.addEventListener("click", (event) => {
   }
 });
 
-export function findCurrentProject() {
-  let currentProject = document.querySelector(".current");
-  if (currentProject) {
-    const foundId = currentProject.getAttribute("projectid");
-    const indexOfCurrent = Todo.projects.findIndex(obj => obj.id === foundId);
-    return indexOfCurrent;
-  }
-  return null;
-}
 
 addButton.addEventListener("click", (event) => {
   event.preventDefault();

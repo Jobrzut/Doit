@@ -1,6 +1,6 @@
 const contentSection = document.querySelector(".content");
 
-import { findCurrentProject } from "./newtask";
+import { findCurrentProject } from "./utilities";
 import { Todo } from "./newlist";
 import { addMinutes, format } from "date-fns";
 
@@ -63,12 +63,11 @@ function addProjectTasks(currentProjectIndex) {
     });
 
     contentSection.appendChild(tasksDiv);
-    console.log(Todo);  
 }
 
 export function displayProject() {
     const currentProjectIndex = findCurrentProject();
-    if (currentProjectIndex === null) {
+    if (currentProjectIndex === null || currentProjectIndex === undefined) {
         return -1;
     }
     contentSection.innerHTML = "";
