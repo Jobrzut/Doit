@@ -2,19 +2,19 @@ const contentSection = document.querySelector(".content");
 
 import { findCurrentProject } from "./utilities";
 import { Todo } from "./newlist";
-import { addMinutes, format } from "date-fns";
+import { add, addMinutes, format } from "date-fns";
 
-function addProjectTitle(currentProjectIndex) {
+function addProjectTitle(name) {
     const projectTitle = document.createElement("h1");
     projectTitle.className = "project_title";
-    projectTitle.textContent = Todo.projects[currentProjectIndex].name;
+    projectTitle.textContent = name;
     contentSection.appendChild(projectTitle);
 }
 
-function addProjectDescription(currentProjectIndex) {
+function addProjectDescription(description) {
     const projectDescription = document.createElement("p");
     projectDescription.className = "project_description";
-    projectDescription.textContent = Todo.projects[currentProjectIndex].description;
+    projectDescription.textContent = description;
     contentSection.appendChild(projectDescription);
 }
 
@@ -41,10 +41,10 @@ function sortByPriority(tasks) {
     return [...unfinishedTasks, ...finishedTasks];
 }
 
-function addProjectTasks(currentProjectIndex) {
+function addProjectTasks(tasks) {
     const tasksDiv = document.createElement("div");
     tasksDiv.className = "tasks_div";
-    let tasksSortedByPriority = sortByPriority(Todo.projects[currentProjectIndex].tasks);
+    let tasksSortedByPriority = sortByPriority(tasks);
 
     tasksSortedByPriority.forEach(task => {
         const taskElement = document.createElement("div");
@@ -93,7 +93,15 @@ export function displayProject() {
         return -1;
     }
     contentSection.innerHTML = "";
-    addProjectTitle(currentProjectIndex);
-    addProjectDescription(currentProjectIndex);
-    addProjectTasks(currentProjectIndex);
+    addProjectTitle(Todo.projects[currentProjectIndex].name);
+    addProjectDescription(Todo.projects[currentProjectIndex].description);
+    addProjectTasks(Todo.projects[currentProjectIndex].tasks);
+}
+
+export function displayAllTasks() {
+    contentSection.innerHTML = "";
+    addProjectTitle("All tasks");
+    addProjectDescription("Here you can find all your tasks.");
+    const allTasks = [...Todo.projects.map(project => project.tasks).flat()];
+    addProjectTasks(allTasks);
 }

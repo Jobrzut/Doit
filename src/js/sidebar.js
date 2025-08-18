@@ -1,14 +1,25 @@
 const sidebar = document.querySelector(".sidebar");
 
-import { displayProject } from "./displayproject";
+import { displayProject, displayAllTasks } from "./displayproject";
+
+function markAsCurrent(target) {
+    let top_list = document.querySelectorAll(".sidebar ul li:not(.add_task)");
+        top_list.forEach(li => {
+            if (li.classList.contains("current")) {
+                li.classList.remove("current");
+            }
+        });
+        target.classList.add("current");
+}
 
 sidebar.addEventListener("click", (event) => {
     if (event.target.tagName.toLowerCase() === "li" && event.target.parentElement.classList.contains("userAdded")) {
-        let top_list = document.querySelectorAll(".sidebar ul li:not(.add_task)");
-        top_list.forEach(li => {
-           li.className = "";
-        });
-        event.target.className = "current";
+        markAsCurrent(event.target);
+        displayProject();
     }
-    displayProject();
+
+    if (event.target.classList.contains("all_tasks")) {
+        markAsCurrent(event.target);
+        displayAllTasks();
+    }
 });
