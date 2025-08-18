@@ -86,9 +86,9 @@ h6 {
     --black-text: #333333;
     --priority-urgent: #E63946; 
     --priority-important: #FF8C00; 
-    --priority-normal: #3F72AF;   
-    --priority-wait: #6D9DC5;     
-    --priority-whenever: #B0BEC5; 
+    --priority-wait: #3F72AF;   
+    --priority-whenever: #2A9D8F;     
+    --priority-normal: #9B5DE5; 
 
 }
 
