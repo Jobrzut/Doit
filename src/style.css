@@ -433,6 +433,7 @@ dialog label {
 
 .content {
     padding: 30px 50px 0px;
+    position: relative;
 }
 
 .content h1 {
@@ -502,4 +503,14 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
   transform: scale(1);
+}
+
+.no_projects_message {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    width: fit-content;
+    font-size: 2.5em !important; 
+    color: var(--third-color);
 }
