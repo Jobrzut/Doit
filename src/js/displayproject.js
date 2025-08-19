@@ -162,7 +162,7 @@ function displayTasksWithDate(groups, refresh) {
         const dateGroup = document.createElement("div");
         dateGroup.className = "date_group"
 
-        const dateTitle = document.createElement("h2");
+        const dateTitle = document.createElement("h3");
         dateTitle.className = "date_title";
         dateTitle.textContent = formatedDueDate;
         dateGroup.appendChild(dateTitle);
@@ -179,11 +179,6 @@ function displayTasksWithDate(groups, refresh) {
             taskName.textContent = task.title;
             const taskCheckbox = document.createElement("input");
             taskCheckbox.type = "checkbox";
-            if (task.isDone) {
-                taskCheckbox.checked = true;
-                taskName.classList.add("strikethrough");
-                taskName.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
-            }
             taskCheckbox.style.borderColor = `var(--priority-${task.priority})`;
             taskCheckbox.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
             taskCheckbox.addEventListener("click", (event) => {
