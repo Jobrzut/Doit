@@ -1,6 +1,6 @@
 const sidebar = document.querySelector(".sidebar");
 
-import { displayProject, displayAllTasks } from "./displayproject";
+import { displayProject, displayAllTasks, displayTodayTasks } from "./displayproject";
 
 function markAsCurrent(target) {
     let top_list = document.querySelectorAll(".sidebar ul li:not(.add_task)");
@@ -22,4 +22,11 @@ sidebar.addEventListener("click", (event) => {
         markAsCurrent(event.target);
         displayAllTasks();
     }
+
+    if (event.target.classList.contains("today_tasks")) {
+        markAsCurrent(event.target);
+        displayTodayTasks();
+    }
 });
+
+

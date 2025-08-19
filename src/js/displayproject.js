@@ -105,3 +105,26 @@ export function displayAllTasks() {
     const allTasks = [...Todo.projects.map(project => project.tasks).flat()];
     addProjectTasks(allTasks, displayAllTasks);
 }
+
+export function displayNoTasksForToday() {
+    contentSection.innerHTML = "";
+    const noProjectsMessage = document.createElement("h1");
+    noProjectsMessage.className = "no_projects_message";
+    noProjectsMessage.textContent = "Lucky you! You have no tasks for today.";
+    contentSection.appendChild(noProjectsMessage);
+}
+
+export function displayTodayTasks() {
+    contentSection.innerHTML = "";
+    addProjectTitle("Today's tasks");
+    addProjectDescription("Here you can find all tasks due today.");
+    const today = new Date().toISOString().split("T")[0];
+    const allTasks = [...Todo.projects.map(project => project.tasks).flat()];
+    const todayTasks = allTasks.filter(task => task.date == today);
+    const todayUnfinished = todayTasks.filter(task => !task.isDone);
+    if (todayUnfinished.length !== 0) {
+        addProjectTasks(todayTasks, displayTodayTasks);
+    } else {
+        displayNoTasksForToday();
+    }
+}
