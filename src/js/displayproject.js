@@ -98,9 +98,15 @@ function addProjectTasks(tasks, refresh = displayProject) {
         if (task.date !== "") {
             const formatedDueDate = format(new Date(task.date), "d MMM");
             const taskDueDate = document.createElement("p");
-            taskDueDate.className = "task_duedate";
+            taskDueDate.classList.add("task_duedate");
             taskDueDate.textContent = formatedDueDate;
             taskElement.appendChild(taskDueDate);
+
+            if (task.date.split("T")[0] < new Date().toISOString().split("T")[0]) {
+                taskDueDate.classList.add("overdue")
+            } else {
+                taskDueDate.classList.add("ontime");
+            }
         }
         tasksDiv.appendChild(taskElement);
     });
@@ -164,7 +170,10 @@ function displayTasksWithDate(groups, refresh) {
 
         const dateTitle = document.createElement("h3");
         dateTitle.className = "date_title";
-        dateTitle.textContent = formatedDueDate;
+        dateTitle.textContent = formatedDueDate;    
+        if (groups[group].date.split("T")[0] < new Date().toISOString().split("T")[0]) {
+            dateTitle.classList.add("overdue");
+        }
         dateGroup.appendChild(dateTitle);
 
 

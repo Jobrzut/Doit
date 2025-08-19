@@ -472,13 +472,21 @@ dialog label {
     border-radius: 5px;
     font-size: 0.8em;
     font-weight: bold;
+}
+
+.ontime {
     color: var(--fourth-color);
+}
+
+.overdue {
+    color: var(--red);
 }
 
 .tasks_div {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-bottom: 20px;
 }
 
 .task_name {
