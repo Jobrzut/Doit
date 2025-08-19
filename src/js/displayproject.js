@@ -41,6 +41,27 @@ function sortByPriority(tasks) {
     return [...unfinishedTasks, ...finishedTasks];
 }
 
+function sortByDate(tasks) {
+    const groups = tasks.reduce((groups, task) => {
+        const date = task.date.split('T')[0];
+        if (!groups[date]) {
+            groups[date] = [];
+        }
+        groups[date].push(task);
+        return groups;
+    }, {});
+
+    const groupArrays = Object.keys(groups).map((date) => {
+        return {
+            date,
+            tasks: groups[date]
+        };
+    });
+
+    const sortedGroups = groupArrays.sort((a, b) => new Date(a.date) - new Date(b.date));
+    return sortedGroups;
+}
+
 function addProjectTasks(tasks, refresh = displayProject) {
     const tasksDiv = document.createElement("div");
     tasksDiv.className = "tasks_div";
@@ -58,7 +79,7 @@ function addProjectTasks(tasks, refresh = displayProject) {
             taskCheckbox.checked = true;
             taskName.classList.add("strikethrough");
             taskName.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
-        } 
+        }
         taskCheckbox.style.borderColor = `var(--priority-${task.priority})`;
         taskCheckbox.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
         taskCheckbox.addEventListener("click", (event) => {
@@ -68,7 +89,7 @@ function addProjectTasks(tasks, refresh = displayProject) {
                 taskName.classList.add("strikethrough");
                 taskName.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
                 taskName.classList.add("animate");
-                setTimeout(() => {taskName.classList.remove("animate")}, 500);
+                setTimeout(() => { taskName.classList.remove("animate") }, 500);
             }
             setTimeout(() => refresh(), 500);
         });
@@ -127,4 +148,70 @@ export function displayTodayTasks() {
     } else {
         displayNoTasksForToday();
     }
+}
+
+function displayTasksWithDate(groups, refresh) {
+    const tasksDiv = document.createElement("div");
+    tasksDiv.className = "tasks_div";
+    let tasksSortedByDate = groups;
+
+    Object.keys(tasksSortedByDate).forEach(group => {
+        const formatedDueDate = format(groups[group].date, "d MMMM yyyy");
+
+
+        const dateGroup = document.createElement("div");
+        dateGroup.className = "date_group"
+
+        const dateTitle = document.createElement("h2");
+        dateTitle.className = "date_title";
+        dateTitle.textContent = formatedDueDate;
+        dateGroup.appendChild(dateTitle);
+
+
+
+        let tasksSortedByPriority = sortByPriority(groups[group].tasks);
+
+        tasksSortedByPriority.forEach(task => {
+            const taskElement = document.createElement("div");
+            taskElement.className = "task";
+            const taskName = document.createElement("p");
+            taskName.className = "task_name";
+            taskName.textContent = task.title;
+            const taskCheckbox = document.createElement("input");
+            taskCheckbox.type = "checkbox";
+            if (task.isDone) {
+                taskCheckbox.checked = true;
+                taskName.classList.add("strikethrough");
+                taskName.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
+            }
+            taskCheckbox.style.borderColor = `var(--priority-${task.priority})`;
+            taskCheckbox.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
+            taskCheckbox.addEventListener("click", (event) => {
+                task.toggleDone();
+                localStorage.setItem("Todo", JSON.stringify(Todo));
+                if (task.isDone) {
+                    taskName.classList.add("strikethrough");
+                    taskName.style.setProperty('--dynamic-color', `var(--priority-${task.priority})`);
+                    taskName.classList.add("animate");
+                    setTimeout(() => { taskName.classList.remove("animate") }, 500);
+                }
+                setTimeout(() => refresh(), 500);
+            });
+            taskElement.append(taskCheckbox, taskName);
+            dateGroup.appendChild(taskElement);
+        });
+        tasksDiv.appendChild(dateGroup);
+    });
+
+    contentSection.appendChild(tasksDiv);
+}
+
+export function displayIncomingTasks() {
+    contentSection.innerHTML = "";
+    addProjectTitle("Incoming tasks");
+    addProjectDescription("Here you can find all tasks that are due in the future.");
+    const allTasks = [...Todo.projects.map(project => project.tasks).flat()];
+    const unfinishedTasks = allTasks.filter(task => !task.isDone)
+    const datedTasks = unfinishedTasks.filter(task => task.date !== "");
+    displayTasksWithDate(sortByDate(datedTasks), displayIncomingTasks);
 }
