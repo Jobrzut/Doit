@@ -38,6 +38,7 @@ function displayUserInfo() {
 function createModal() {
   const form = document.createElement("form");
   form.classList = "user_input";
+  form.style.zIndex = "2";
 
   const usernameDiv = document.createElement("div");
   usernameDiv.classList = "username";

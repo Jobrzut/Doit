@@ -32,6 +32,7 @@ function addNewList(name, description) {
 function createModal() {
     const form = document.createElement("form");
     form.classList = "newlist_input";
+    form.style.zIndex = "2";
 
     const listnameDiv = document.createElement("div");
     listnameDiv.classList = "listname";
