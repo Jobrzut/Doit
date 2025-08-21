@@ -458,9 +458,7 @@ dialog label {
 }
 
 .task {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-columns: auto auto;  
+    display: flex;
     row-gap: 5px; 
     column-gap: 20px;
     justify-content: start; 
@@ -468,8 +466,6 @@ dialog label {
 }
 
 .task_duedate {
-    grid-column: 2;
-    grid-row: 2;
     background-color: var(--secondary-color);
     width: fit-content;
     padding: 3px;
