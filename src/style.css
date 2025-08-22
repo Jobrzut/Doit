@@ -499,7 +499,14 @@ dialog label {
 }
 
 .collapsible_wrapper {
-    padding: 5px 15px 15px 59px;
+    padding: 5px 59px 15px 59px;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 40px;
+}
+
+.collapsible_wrapper h4, .collapsible_wrapper p:not(.collapsible_description) {
+    white-space: nowrap;
 }
 
 .task_duedate {

@@ -1,5 +1,13 @@
 const contentSection = document.querySelector(".content");
 
+const correspondingPriority = {
+    "urgent": "Very fucking urgent",
+    "important": "Important",
+    "normal": "Normal",
+    "wait": "Can wait",
+    "whenever": "Whenever"
+}
+
 import { findCurrentProject } from "./utilities";
 import { Todo } from "./newlist";
 import { add, addMinutes, format } from "date-fns";
@@ -127,12 +135,30 @@ function addProjectTasks(tasks, refresh = displayProject) {
         const collapsibleWrapper = document.createElement("div");
         collapsibleContent.className = "collapsible_content";
         collapsibleWrapper.className = "collapsible_wrapper";
-        const collapsibleName = document.createElement("h3");
-        collapsibleName.textContent = task.title;
-        const collapsibleDescription = document.createElement("p");
-        collapsibleDescription.textContent = task.description;
 
-        collapsibleWrapper.append(collapsibleName, collapsibleDescription);
+        const collapsibleDescriptionDiv = document.createElement("div");
+        const collapsibleDescriptionHeader = document.createElement("h4");
+        collapsibleDescriptionHeader.textContent = "Descripition:";
+        const collapsibleDescription = document.createElement("p");
+        collapsibleDescription.textContent = task.description || "No description";
+        collapsibleDescription.className = "collapsible_description";
+        collapsibleDescriptionDiv.append(collapsibleDescriptionHeader, collapsibleDescription)
+
+        const collapsiblePriorityDiv = document.createElement("div");
+        const collapsiblePriorityHeader = document.createElement("h4");
+        collapsiblePriorityHeader.textContent = "Priority:"
+        const collapsiblePriority = document.createElement("p");
+        collapsiblePriority.textContent = correspondingPriority[task.priority];
+        collapsiblePriorityDiv.append(collapsiblePriorityHeader, collapsiblePriority);
+
+        const collapsibleDateDiv = document.createElement("div");
+        const collapsibleDateHeader = document.createElement("h4");
+        collapsibleDateHeader.textContent = "Due date:";
+        const collapsibleDate = document.createElement("p");
+        collapsibleDate.textContent = task.date;
+        collapsibleDateDiv.append(collapsibleDateHeader, collapsibleDate);
+
+        collapsibleWrapper.append(collapsibleDescriptionDiv, collapsiblePriorityDiv, collapsibleDateDiv);
         collapsibleContent.appendChild(collapsibleWrapper);
         taskElement.append(upperTask, collapsibleContent);
 
@@ -247,12 +273,32 @@ function displayTasksWithDate(groups, refresh) {
             const collapsibleWrapper = document.createElement("div");
             collapsibleContent.className = "collapsible_content";
             collapsibleWrapper.className = "collapsible_wrapper";
-            const collapsibleName = document.createElement("h3");
-            collapsibleName.textContent = task.title;
-            const collapsibleDescription = document.createElement("p");
-            collapsibleDescription.textContent = task.description;
 
-            collapsibleWrapper.append(collapsibleName, collapsibleDescription);
+            const collapsibleDescriptionDiv = document.createElement("div");
+            const collapsibleDescriptionHeader = document.createElement("h4");
+            collapsibleDescriptionHeader.textContent = "Descripition:";
+            const collapsibleDescription = document.createElement("p");
+            collapsibleDescription.textContent = task.description || "No description";
+            collapsibleDescription.className = "collapsible_description";
+            collapsibleDescriptionDiv.append(collapsibleDescriptionHeader, collapsibleDescription)
+
+            const collapsiblePriorityDiv = document.createElement("div");
+            const collapsiblePriorityHeader = document.createElement("h4");
+            collapsiblePriorityHeader.textContent = "Priority:"
+            const collapsiblePriority = document.createElement("p");
+            collapsiblePriority.textContent = correspondingPriority[task.priority];
+            collapsiblePriorityDiv.append(collapsiblePriorityHeader, collapsiblePriority);
+
+            const collapsibleDateDiv = document.createElement("div");
+            const collapsibleDateHeader = document.createElement("h4");
+            collapsibleDateHeader.textContent = "Due date:";
+            const collapsibleDate = document.createElement("p");
+            collapsibleDate.textContent = task.date;
+            collapsibleDateDiv.append(collapsibleDateHeader, collapsibleDate);
+
+            collapsibleWrapper.append(collapsibleDescriptionDiv, collapsiblePriorityDiv, collapsibleDateDiv);
+
+
             collapsibleContent.appendChild(collapsibleWrapper);
             taskElement.append(upperTask, collapsibleContent);
 
