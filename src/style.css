@@ -78,6 +78,7 @@ h6 {
 :root {
     --primary-color: #F9F7F7;
     --secondary-color: #DBE2EF;
+    --secondary-light-color: #EBF0F7;
     --third-color: #C5CFDE;
     --fourth-color: #3F72AF;
     --fourth-color-lighter: #A5C5E5;
@@ -458,11 +459,47 @@ dialog label {
 }
 
 .task {
-    display: flex;
-    row-gap: 5px; 
+    display: flex; 
+    flex-direction: column;
+}
+
+.upper_task {
+    display: flex; 
     column-gap: 20px;
-    justify-content: start; 
     align-items: center;
+    background-color: transparent;
+    border: 0;
+    padding: 15px;
+    transition: 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+.active_collapsible {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.collapsible_content {
+    background-color: var(--secondary-light-color);
+    border-radius: 0 0 10px 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.active_collapsible, .upper_task:hover {
+  background-color: var(--secondary-light-color);
+}
+
+.upper_task:after {
+  font-size: 1em;
+  color: var(--black-text);
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.collapsible_wrapper {
+    padding: 5px 15px 15px 59px;
 }
 
 .task_duedate {
@@ -485,8 +522,8 @@ dialog label {
 .tasks_div {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-bottom: 20px;
+    gap: 10px;
+    padding-bottom: 10px;
 }
 
 .task_name {

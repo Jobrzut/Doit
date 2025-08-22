@@ -69,7 +69,20 @@ function addProjectTasks(tasks, refresh = displayProject) {
 
     tasksSortedByPriority.forEach(task => {
         const taskElement = document.createElement("div");
+
+        const upperTask = document.createElement("button");
+        upperTask.addEventListener("click", function () {
+            this.classList.toggle("active_collapsible");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+
         taskElement.className = "task";
+        upperTask.className = "upper_task";
         const taskName = document.createElement("p");
         taskName.className = "task_name";
         taskName.textContent = task.title;
@@ -93,14 +106,14 @@ function addProjectTasks(tasks, refresh = displayProject) {
             }
             setTimeout(() => refresh(), 500);
         });
-        taskElement.append(taskCheckbox, taskName);
+        upperTask.append(taskCheckbox, taskName);
 
         if (task.date !== "") {
             const formatedDueDate = format(new Date(task.date), "d MMM");
             const taskDueDate = document.createElement("p");
             taskDueDate.classList.add("task_duedate");
             taskDueDate.textContent = formatedDueDate;
-            taskElement.appendChild(taskDueDate);
+            upperTask.appendChild(taskDueDate);
 
             if (task.date.split("T")[0] < new Date().toISOString().split("T")[0]) {
                 taskDueDate.classList.add("overdue")
@@ -109,6 +122,20 @@ function addProjectTasks(tasks, refresh = displayProject) {
             }
         }
         tasksDiv.appendChild(taskElement);
+
+        const collapsibleContent = document.createElement("div");
+        const collapsibleWrapper = document.createElement("div");
+        collapsibleContent.className = "collapsible_content";
+        collapsibleWrapper.className = "collapsible_wrapper";
+        const collapsibleName = document.createElement("h3");
+        collapsibleName.textContent = task.title;
+        const collapsibleDescription = document.createElement("p");
+        collapsibleDescription.textContent = task.description;
+
+        collapsibleWrapper.append(collapsibleName, collapsibleDescription);
+        collapsibleContent.appendChild(collapsibleWrapper);
+        taskElement.append(upperTask, collapsibleContent);
+
     });
 
     contentSection.appendChild(tasksDiv);
@@ -170,7 +197,7 @@ function displayTasksWithDate(groups, refresh) {
 
         const dateTitle = document.createElement("h3");
         dateTitle.className = "date_title";
-        dateTitle.textContent = formatedDueDate;    
+        dateTitle.textContent = formatedDueDate;
         if (groups[group].date.split("T")[0] < new Date().toISOString().split("T")[0]) {
             dateTitle.classList.add("overdue");
         }
@@ -183,8 +210,21 @@ function displayTasksWithDate(groups, refresh) {
         tasksSortedByPriority.forEach(task => {
             const taskElement = document.createElement("div");
             taskElement.className = "task";
+
+            const upperTask = document.createElement("button");
+            upperTask.addEventListener("click", function () {
+                this.classList.toggle("active_collapsible");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+
             const taskName = document.createElement("p");
             taskName.className = "task_name";
+            upperTask.className = "upper_task";
             taskName.textContent = task.title;
             const taskCheckbox = document.createElement("input");
             taskCheckbox.type = "checkbox";
@@ -201,7 +241,21 @@ function displayTasksWithDate(groups, refresh) {
                 }
                 setTimeout(() => refresh(), 500);
             });
-            taskElement.append(taskCheckbox, taskName);
+            upperTask.append(taskCheckbox, taskName);
+
+            const collapsibleContent = document.createElement("div");
+            const collapsibleWrapper = document.createElement("div");
+            collapsibleContent.className = "collapsible_content";
+            collapsibleWrapper.className = "collapsible_wrapper";
+            const collapsibleName = document.createElement("h3");
+            collapsibleName.textContent = task.title;
+            const collapsibleDescription = document.createElement("p");
+            collapsibleDescription.textContent = task.description;
+
+            collapsibleWrapper.append(collapsibleName, collapsibleDescription);
+            collapsibleContent.appendChild(collapsibleWrapper);
+            taskElement.append(upperTask, collapsibleContent);
+
             dateGroup.appendChild(taskElement);
         });
         tasksDiv.appendChild(dateGroup);
