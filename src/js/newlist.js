@@ -88,6 +88,15 @@ class TodoList {
     removeProject(index) {
         this.projects.splice(index, 1);
     }
+
+    removeTaskById(taskId) {
+        this.projects.forEach(project => {
+            const taskIndex = project.tasks.findIndex(task => task.id === taskId);
+            if (taskIndex !== -1) {
+                project.tasks.splice(taskIndex, 1);
+            }
+        });
+    }
 }
 
 class Project {
@@ -111,6 +120,7 @@ export class Task {
         this.date = date;
         this.priority = priority;
         this.isDone = isDone;
+        this.id = crypto.randomUUID();
     }
 
     toggleDone() {
@@ -126,7 +136,7 @@ if (TodoData) {
     TodoData.projects.forEach(p => {
         const project = new Project(p.name, p.description);
         p.tasks.forEach(t => {
-            const task = new Task(t.title, t.description, t.date, t.priority, t.isDone);
+            const task = new Task(t.title, t.description, t.date, t.priority, t.isDone, t.id);
             project.tasks.push(task);
         });
         Todo.projects.push(project);

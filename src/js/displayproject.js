@@ -141,8 +141,16 @@ function addProjectTasks(tasks, refresh = displayProject) {
 
         const deleteButton = document.createElement("button");
         deleteButton.className = "trash_button";
+        deleteButton.id = task.id
         deleteButton.innerHTML = trash_button_icon;
         upperTask.appendChild(deleteButton);
+        deleteButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            Todo.removeTaskById(task.id);
+            localStorage.setItem("Todo", JSON.stringify(Todo));
+            refresh();
+        });
+
 
         tasksDiv.appendChild(taskElement);
 
@@ -288,8 +296,15 @@ function displayTasksWithDate(groups, refresh) {
 
             const deleteButton = document.createElement("button");
             deleteButton.className = "trash_button";
+            deleteButton.id = task.id
             deleteButton.innerHTML = trash_button_icon;
             upperTask.appendChild(deleteButton);
+            deleteButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+                Todo.removeTaskById(task.id);
+                localStorage.setItem("Todo", JSON.stringify(Todo));
+                refresh();
+            });
 
             const collapsibleContent = document.createElement("div");
             const collapsibleWrapper = document.createElement("div");

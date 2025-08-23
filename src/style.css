@@ -619,4 +619,5 @@ input[type="checkbox"]:checked::before {
 
 .tasks_div .trash_button {
     margin-left: auto;
+    cursor: pointer;
 }
