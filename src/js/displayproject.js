@@ -139,8 +139,8 @@ function addProjectTasks(tasks, refresh = displayProject) {
             }
         }
 
-        const deleteButton = document.createElement("button");
-        deleteButton.className = "trash_button";
+        const deleteButton = document.createElement("a");
+        deleteButton.className = "task_trash_button";
         deleteButton.id = task.id
         deleteButton.innerHTML = trash_button_icon;
         upperTask.appendChild(deleteButton);
@@ -294,8 +294,8 @@ function displayTasksWithDate(groups, refresh) {
             });
             upperTask.append(taskCheckbox, taskName);
 
-            const deleteButton = document.createElement("button");
-            deleteButton.className = "trash_button";
+            const deleteButton = document.createElement("a");
+            deleteButton.className = "task_trash_button";
             deleteButton.id = task.id
             deleteButton.innerHTML = trash_button_icon;
             upperTask.appendChild(deleteButton);

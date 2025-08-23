@@ -22,7 +22,7 @@ function addNewList(name, description) {
     Todo.addProject(name, description);
     showLists();
     const addedItem = document.querySelectorAll(".userAdded li");
-    addedItem[addedItem.length-1].className = "current";
+    addedItem[addedItem.length - 1].className = "current";
     displayProject();
     const addTaskButton = document.querySelector(".add_task button");
     addTaskButton.disabled = false;
@@ -177,7 +177,7 @@ function setCurrentToThePrevious(previousElementSibling, nextElementSibling) {
         let top_list = Array.from(document.querySelectorAll(".sidebar ul li:not(.add_task)"));
         const previousElement = top_list.find(obj => obj.getAttribute("projectid") === previousElementId);
         top_list.forEach(li => {
-           li.className = "";
+            li.className = "";
         });
         previousElement.className = "current";
     } else {
@@ -203,11 +203,13 @@ trashButton.addEventListener("click", (event) => {
     const toDelete = currentProject.getAttribute("projectid");
 
     if (toDelete) {
-        const indexToDelete = Todo.projects.findIndex(obj => obj.id === toDelete);
-        Todo.removeProject(indexToDelete);
-        showLists();
-        setCurrentToThePrevious(previousElementSibling, nextElementSibling)
-        displayProject();
+        if (confirm(`Delete the "${currentProject.textContent.trim().substring(2)}" project?`)) {
+            const indexToDelete = Todo.projects.findIndex(obj => obj.id === toDelete);
+            Todo.removeProject(indexToDelete);
+            showLists();
+            setCurrentToThePrevious(previousElementSibling, nextElementSibling)
+            displayProject();
+        }
     }
 });
 

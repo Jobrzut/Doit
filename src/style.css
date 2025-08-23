@@ -612,12 +612,28 @@ input[type="checkbox"]:checked::before {
     padding-bottom: 20px;
 }
 
-.trash_button {
-    background: transparent;
-    border: none;
+.task_trash_button {
+    cursor: pointer;
+    margin-left: auto;
+    transition: opacity 0.2s ease;
+    opacity: 0;
 }
 
-.tasks_div .trash_button {
-    margin-left: auto;
-    cursor: pointer;
+.task_trash_button svg {
+    width: 30px;
+    height: 30px;
+    transition: 0.1s ease-in-out;
+}
+
+.task_trash_button:hover svg {
+    fill: var(--red);
+    animation: shake 0.3s ease-in-out 1;
+}
+
+.task:has(.collapsible_content.active_collapsible) .task_trash_button {
+  opacity: 1;
+}
+
+.upper_task:hover .task_trash_button {
+  opacity: 1;
 }
