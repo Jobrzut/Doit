@@ -1,7 +1,7 @@
 const newListButton = document.querySelector(".addlist_button");
 const footerSidebar = document.querySelector(".footer_sidebar");
 const userAddedListUl = document.querySelector(".userAdded");
-const trashButton = document.querySelector(".trash_button");
+const trashButton = document.querySelector(".footer_sidebar .trash_button");
 let controlerNewList = 0;
 
 import { displayProject } from "./displayproject";

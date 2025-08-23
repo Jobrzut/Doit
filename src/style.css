@@ -611,3 +611,12 @@ input[type="checkbox"]:checked::before {
 .date_title {
     padding-bottom: 20px;
 }
+
+.trash_button {
+    background: transparent;
+    border: none;
+}
+
+.tasks_div .trash_button {
+    margin-left: auto;
+}
