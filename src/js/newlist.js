@@ -126,6 +126,10 @@ export class Task {
     toggleDone() {
         this.isDone = !this.isDone;
     }
+
+    editTask(title) {
+        this.title = title;
+    }
 }
 
 let TodoData = JSON.parse(localStorage.getItem("Todo"));

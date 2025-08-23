@@ -612,13 +612,6 @@ input[type="checkbox"]:checked::before {
     padding-bottom: 20px;
 }
 
-.task_trash_button {
-    cursor: pointer;
-    margin-left: auto;
-    transition: opacity 0.2s ease;
-    opacity: 0;
-}
-
 .task_trash_button svg {
     width: 30px;
     height: 30px;
@@ -630,10 +623,34 @@ input[type="checkbox"]:checked::before {
     animation: shake 0.3s ease-in-out 1;
 }
 
-.task:has(.collapsible_content.active_collapsible) .task_trash_button {
+.edit_button:hover svg {
+    fill: var(--fourth-color);
+}
+
+.active_collapsible .task_buttons {
   opacity: 1;
 }
 
-.upper_task:hover .task_trash_button {
+.upper_task:hover .task_buttons {
   opacity: 1;
+}
+
+
+.task_buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    transition: opacity 0.2s ease;
+    opacity: 0;
+}
+
+.edit_button, .task_trash_button {
+    cursor: pointer;
+}
+
+.edit_button svg {
+    width: 22px;
+    height: 22px;
+    transition: 0.2s ease-in-out;
 }
