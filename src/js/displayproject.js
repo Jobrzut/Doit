@@ -79,13 +79,15 @@ function addProjectTasks(tasks, refresh = displayProject) {
         const taskElement = document.createElement("div");
 
         const upperTask = document.createElement("button");
-        upperTask.addEventListener("click", function () {
-            this.classList.toggle("active_collapsible");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
+        upperTask.addEventListener("click", function (event) {
+            if (event.target.tagName !== "INPUT") {
+                this.classList.toggle("active_collapsible");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
             }
         });
 
@@ -238,13 +240,15 @@ function displayTasksWithDate(groups, refresh) {
             taskElement.className = "task";
 
             const upperTask = document.createElement("button");
-            upperTask.addEventListener("click", function () {
-                this.classList.toggle("active_collapsible");
-                var content = this.nextElementSibling;
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
+            upperTask.addEventListener("click", function (event) {
+                if (event.target.tagName !== "INPUT") {
+                    this.classList.toggle("active_collapsible");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
                 }
             });
 
