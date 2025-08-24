@@ -84,6 +84,7 @@ h6 {
     --fourth-color-lighter: #A5C5E5;
     --fifth-color: #112D4E;
     --red: #E84545;
+    --green: #45E86B;
     --black-text: #333333;
     --priority-urgent: #E63946; 
     --priority-important: #FF8C00; 
@@ -653,4 +654,26 @@ input[type="checkbox"]:checked::before {
     width: 22px;
     height: 22px;
     transition: 0.2s ease-in-out;
+}
+
+.yes_button svg, .no_button svg {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.yes_button svg path {
+    transition: 0.2s ease-in-out;
+}
+
+.no_button svg line {
+    transition: 0.2s ease-in-out;
+}
+
+.yes_button:hover svg path {
+    fill: var(--green);
+}
+
+.no_button:hover svg line {
+    stroke: var(--red);
 }

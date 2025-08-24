@@ -127,8 +127,11 @@ export class Task {
         this.isDone = !this.isDone;
     }
 
-    editTask(title) {
+    editTask(title, description, date, priority) {
         this.title = title;
+        this.description = description;
+        this.date = date;
+        this.priority = priority;
     }
 }
 

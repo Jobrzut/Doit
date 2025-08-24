@@ -5,7 +5,7 @@ const trash_button_icon = `
                 <path d="M400 113.3h-80v-20c0-16.2-13.1-29.3-29.3-29.3h-69.5C205.1 64 192 77.1 192 93.3v20h-80V128h21.1l23.6 290.7c0 16.2 13.1 29.3 29.3 29.3h141c16.2 0 29.3-13.1 29.3-29.3L379.6 128H400v-14.7zm-193.4-20c0-8.1 6.6-14.7 14.6-14.7h69.5c8.1 0 14.6 6.6 14.6 14.7v20h-98.7v-20zm135 324.6v.8c0 8.1-6.6 14.7-14.6 14.7H186c-8.1 0-14.6-6.6-14.6-14.7v-.8L147.7 128h217.2l-23.3 289.9z"></path>
                 <path d="M249 160h14v241h-14zM320 160h-14.6l-10.7 241h14.6zM206.5 160H192l10.7 241h14.6z"></path>
                 </svg>
-`
+`;
 
 const edit_button = `
 <svg fill="#333" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -26,6 +26,27 @@ const edit_button = `
 	</g>
 </g>
 </svg>
+`;
+
+const yes_button = `
+<svg width="64px" height="64px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <path fill="#333333" d="M12.16,28a3,3,0,0,1-2.35-1.13L3.22,18.62a1,1,0,0,1,1.56-1.24l6.59,8.24A1,1,0,0,0,13,25.56L27.17,4.44a1,1,0,1,1,1.66,1.12L14.67,26.67A3,3,0,0,1,12.29,28Z"/>
+</svg>
+`
+
+const cancel_button = `
+<svg width="64px" height="64px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <line x1="7" y1="7" x2="25" y2="25" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="7" y1="25" x2="25" y2="7" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`
+
+const selectInput = `
+    <option value="urgent">Very fucking urgent</option>
+    <option value="important">Important</option>
+    <option value="normal" selected>Normal</option>
+    <option value="wait">Can wait</option>
+    <option value="whenever">Whenever</option>
 `
 
 const correspondingPriority = {
@@ -108,7 +129,7 @@ function addProjectTasks(tasks, refresh = displayProject) {
 
         const upperTask = document.createElement("button");
         upperTask.addEventListener("click", function (event) {
-            if (event.target.tagName !== "INPUT" && !event.target.closest(".trash_button")) {
+            if (event.target.tagName !== "INPUT" && !event.target.closest(".trash_button") && !event.target.closest(".edit_button") && !event.target.closest(".no_button")) {
                 this.classList.toggle("active_collapsible");
                 var content = this.nextElementSibling;
                 if (content.style.maxHeight) {
@@ -163,34 +184,6 @@ function addProjectTasks(tasks, refresh = displayProject) {
         const taskButtonsDiv = document.createElement("div")
         taskButtonsDiv.className = "task_buttons";
 
-        const editButton = document.createElement("a");
-        editButton.className = "edit_button";
-        editButton.innerHTML = edit_button;
-
-        editButton.addEventListener("click", (event) => {
-            const taskNameInput = document.createElement("input");
-            taskNameInput.type = "text";
-            taskNameInput.value = taskName.textContent;
-            taskName.style.display = "none";
-            upperTask.insertBefore(taskNameInput, taskName);
-            editButton.style.display = "none";
-
-            taskNameInput.addEventListener('blur', () => {
-                taskName.textContent = taskNameInput.value;
-                task.editTask(taskNameInput.value);
-                localStorage.setItem("Todo", JSON.stringify(Todo));
-                taskName.style.display = "block";
-                taskNameInput.remove();    
-                editButton.style.display = "block";
-
-            });
-            taskNameInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    taskNameInput.blur();
-                }
-            });
-        });
-
         const deleteButton = document.createElement("a");
         deleteButton.className = "task_trash_button";
         deleteButton.innerHTML = trash_button_icon;
@@ -201,8 +194,83 @@ function addProjectTasks(tasks, refresh = displayProject) {
             refresh();
         });
 
+        const editButton = document.createElement("a");
+        editButton.className = "edit_button";
+        editButton.innerHTML = edit_button;
+
         taskButtonsDiv.append(editButton, deleteButton);
         upperTask.appendChild(taskButtonsDiv);
+
+        editButton.addEventListener("click", (event) => {
+            const taskNameInput = document.createElement("input");
+            taskNameInput.type = "text";
+            taskNameInput.value = taskName.textContent;
+            taskName.style.display = "none";
+            upperTask.insertBefore(taskNameInput, taskName);
+
+            const taskDescriptionTextarea = document.createElement("textarea");
+            taskDescriptionTextarea.value = task.description;
+            collapsibleDescription.style.display = "none";
+            collapsibleDescriptionDiv.appendChild(taskDescriptionTextarea);
+
+            const taskDueDateInput = document.createElement("input");
+            taskDueDateInput.type = "date";
+            taskDueDateInput.value = task.date;
+            collapsibleDate.style.display = "none";
+            collapsibleDateDiv.appendChild(taskDueDateInput);
+
+            const taskPriorityInput = document.createElement("select");
+            taskPriorityInput.innerHTML = selectInput;
+            taskPriorityInput.value = task.priority;
+            collapsiblePriority.style.display = "none";
+            collapsiblePriorityDiv.appendChild(taskPriorityInput);
+
+            editButton.style.display = "none";
+            const yesButton = document.createElement("a");
+            yesButton.innerHTML = yes_button;
+            yesButton.className = "yes_button";
+            const noButton = document.createElement("a");
+            noButton.innerHTML = cancel_button;
+            noButton.className = "no_button";
+            taskButtonsDiv.insertBefore(noButton, editButton);
+            taskButtonsDiv.insertBefore(yesButton, noButton);
+
+            if (!upperTask.classList.contains("active_collapsible")) {
+                upperTask.classList.add("active_collapsible");
+                var content = upperTask.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            }
+
+            function removeInlineInputs() {
+                taskNameInput.remove();
+                taskDescriptionTextarea.remove();
+                taskPriorityInput.remove();
+                taskDueDateInput.remove();
+
+                taskName.style.display = "block";
+                collapsibleDescription.style.display = "block";
+                collapsibleDate.style.display = "block";
+                collapsiblePriority.style.display = "block";
+                editButton.style.display = "block";
+                yesButton.style.display = "none";
+                noButton.style.display = "none";
+            }
+
+            noButton.addEventListener("click", () => {
+                removeInlineInputs();
+            });
+
+            yesButton.addEventListener("click", () => {
+                task.editTask(taskNameInput.value, taskDescriptionTextarea.value, taskDueDateInput.value, taskPriorityInput.value);
+                localStorage.setItem("Todo", JSON.stringify(Todo));
+                removeInlineInputs();
+                refresh();
+            });
+        });
 
         taskElement.appendChild(upperTask);
         tasksDiv.appendChild(taskElement);
@@ -315,7 +383,7 @@ function displayTasksWithDate(groups, refresh) {
 
             const upperTask = document.createElement("button");
             upperTask.addEventListener("click", function (event) {
-                if (event.target.tagName !== "INPUT" && !event.target.closest(".trash_button")) {
+                if (event.target.tagName !== "INPUT" && !event.target.closest(".trash_button") && !event.target.closest(".edit_button") && !event.target.closest(".no_button")) {
                     this.classList.toggle("active_collapsible");
                     var content = this.nextElementSibling;
                     if (content.style.maxHeight) {
@@ -359,6 +427,87 @@ function displayTasksWithDate(groups, refresh) {
                 refresh();
             });
 
+            const taskButtonsDiv = document.createElement("div")
+            taskButtonsDiv.className = "task_buttons";
+
+            const editButton = document.createElement("a");
+            editButton.className = "edit_button";
+            editButton.innerHTML = edit_button;
+
+            taskButtonsDiv.append(editButton, deleteButton);
+            upperTask.appendChild(taskButtonsDiv);
+
+            editButton.addEventListener("click", (event) => {
+                const taskNameInput = document.createElement("input");
+                taskNameInput.type = "text";
+                taskNameInput.value = taskName.textContent;
+                taskName.style.display = "none";
+                upperTask.insertBefore(taskNameInput, taskName);
+
+                const taskDescriptionTextarea = document.createElement("textarea");
+                taskDescriptionTextarea.value = task.description;
+                collapsibleDescription.style.display = "none";
+                collapsibleDescriptionDiv.appendChild(taskDescriptionTextarea);
+
+                const taskDueDateInput = document.createElement("input");
+                taskDueDateInput.type = "date";
+                taskDueDateInput.value = task.date;
+                collapsibleDate.style.display = "none";
+                collapsibleDateDiv.appendChild(taskDueDateInput);
+
+                const taskPriorityInput = document.createElement("select");
+                taskPriorityInput.innerHTML = selectInput;
+                taskPriorityInput.value = task.priority;
+                collapsiblePriority.style.display = "none";
+                collapsiblePriorityDiv.appendChild(taskPriorityInput);
+
+                editButton.style.display = "none";
+                const yesButton = document.createElement("a");
+                yesButton.innerHTML = yes_button;
+                yesButton.className = "yes_button";
+                const noButton = document.createElement("a");
+                noButton.innerHTML = cancel_button;
+                noButton.className = "no_button";
+                taskButtonsDiv.insertBefore(noButton, editButton);
+                taskButtonsDiv.insertBefore(yesButton, noButton);
+
+                if (!upperTask.classList.contains("active_collapsible")) {
+                    upperTask.classList.add("active_collapsible");
+                    var content = upperTask.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                }
+
+                function removeInlineInputs() {
+                    taskNameInput.remove();
+                    taskDescriptionTextarea.remove();
+                    taskPriorityInput.remove();
+                    taskDueDateInput.remove();
+
+                    taskName.style.display = "block";
+                    collapsibleDescription.style.display = "block";
+                    collapsibleDate.style.display = "block";
+                    collapsiblePriority.style.display = "block";
+                    editButton.style.display = "block";
+                    yesButton.style.display = "none";
+                    noButton.style.display = "none";
+                }
+
+                noButton.addEventListener("click", () => {
+                    removeInlineInputs();
+                });
+
+                yesButton.addEventListener("click", () => {
+                    task.editTask(taskNameInput.value, taskDescriptionTextarea.value, taskDueDateInput.value, taskPriorityInput.value);
+                    localStorage.setItem("Todo", JSON.stringify(Todo));
+                    removeInlineInputs();
+                    refresh();
+                });
+            });
+
             const collapsibleContent = document.createElement("div");
             const collapsibleWrapper = document.createElement("div");
             collapsibleContent.className = "collapsible_content";
@@ -383,7 +532,7 @@ function displayTasksWithDate(groups, refresh) {
             const collapsibleDateHeader = document.createElement("h4");
             collapsibleDateHeader.textContent = "Due date:";
             const collapsibleDate = document.createElement("p");
-            collapsibleDate.textContent = task.date;
+            collapsibleDate.textContent = task.date || "No due date";
             collapsibleDateDiv.append(collapsibleDateHeader, collapsibleDate);
 
             collapsibleWrapper.append(collapsibleDescriptionDiv, collapsiblePriorityDiv, collapsibleDateDiv);
